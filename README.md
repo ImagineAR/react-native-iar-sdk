@@ -2,7 +2,7 @@
 
 A React Native wrapper for the ImagineAR Surface SDK
 
-This guide assumes you already have a native iOS/Android application, to which you will be adding the ImagineAR SDK.
+This guide assumes you already have a React Native iOS/Android application, to which you will be adding the ImagineAR SDK.
 
 # Installation
 
@@ -130,7 +130,7 @@ import { downloadOnDemandMarkers, IARMarker } from 'react-native-iar-sdk';
 const markers: IARLocationMarker[] = await getLocationMarkers(
   longitude,
   latitude,
-  radius,
+  radius
 );
 ```
 

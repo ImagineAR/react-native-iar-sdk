@@ -1,0 +1,122 @@
+buildscript {
+  // Buildscript is evaluated before everything else so we can't use getExtOrDefault
+  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["IarSdk_kotlinVersion"]
+
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "com.android.tools.build:gradle:7.2.1"
+    // noinspection DifferentKotlinGradleVersion
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+  }
+}
+
+def isNewArchitectureEnabled() {
+  return rootProject.hasProperty("newArchEnabled") && rootProject.getProperty("newArchEnabled") == "true"
+}
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+
+if (isNewArchitectureEnabled()) {
+  apply plugin: "com.facebook.react"
+}
+
+def getExtOrDefault(name) {
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["IarSdk_" + name]
+}
+
+def getExtOrIntegerDefault(name) {
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["IarSdk_" + name]).toInteger()
+}
+
+android {
+  compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+
+  defaultConfig {
+    minSdkVersion getExtOrIntegerDefault("minSdkVersion")
+    targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
+    buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+  }
+
+  lintOptions {
+    disable "GradleCompatible"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  // We use the .filamat extension for materials compiled with matc
+  // Telling aapt to not compress them allows to load them efficiently
+  aaptOptions {
+      noCompress 'filamat', 'ktx'
+  }
+
+}
+
+repositories {
+  mavenCentral()
+  google()
+  maven {
+        url "https://jitpack.io"
+    }
+}
+
+def kotlin_version = getExtOrDefault("kotlinVersion")
+
+dependencies {
+  // For < 0.71, this will be from the local maven repo
+  // For > 0.71, this will be replaced by `com.facebook.react:react-android:$version` by react gradle plugin
+  //noinspection GradleDynamicVersion
+  implementation "com.facebook.react:react-native:0.70.7"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+  // IAR Dependancies
+  implementation 'com.github.ImagineAR:iar-core-android:1.7.0'
+  implementation 'com.github.ImagineAR:iar-surface-android:1.7.0'
+
+  implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+  implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+  implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+  implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+  implementation 'com.squareup.retrofit2:converter-scalars:2.7.1'
+
+  implementation 'com.google.android.filament:filament-android:1.12.7'
+  implementation 'com.google.android.filament:filament-utils-android:1.12.7'
+  implementation 'com.google.android.filament:gltfio-android:1.12.7'
+
+  implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+  implementation 'androidx.preference:preference:1.1.1'
+
+  api 'com.google.ar:core:1.21.0'
+  api 'io.arrow-kt:arrow-fx:0.11.0'
+  api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
+  api 'org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.3.9-native-mt-2'
+  api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
+  api 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.9'
+}
+
+if (isNewArchitectureEnabled()) {
+  react {
+    jsRootDir = file("../src/")
+    libraryName = "IarSdk"
+    codegenJavaPackageName = "com.iarsdk"
+  }
+}

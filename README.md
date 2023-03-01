@@ -55,10 +55,10 @@ config = use_native_modules!
 flags = get_default_flags()
 ...
 use_react_native!(
-	:path  => config[:reactNativePath],
-	:hermes_enabled  =>  false,
-	:fabric_enabled  =>  false,
-	...
+  :path  => config[:reactNativePath],
+  :hermes_enabled  =>  false,
+  :fabric_enabled  =>  false,
+  ...
 )
 ...
 end
@@ -71,11 +71,11 @@ The minimum API Level for this the IAR SDK is `26`
 ```gradle
 
 buildscript {
-	ext {
-		...
-		minSdkVersion =  26
-	}
-	...
+  ext {
+    ...
+    minSdkVersion =  26
+  }
+  ...
 }
 
 ```
@@ -84,15 +84,15 @@ The IAR SDK is built using Kotlin. If your application is not already using Kotl
 ```gradle
 
 buildscript {
-    ext.kotlin_version = '1.5.20'
-    repositories {
-        ...
-    }
-    dependencies {
-        ...
-        classpath 'com.android.tools.build:gradle:4.1.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+  ext.kotlin_version = '1.5.20'
+  repositories {
+      ...
+  }
+  dependencies {
+    ...
+    classpath 'com.android.tools.build:gradle:4.1.2'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+  }
 }
 
 ```
@@ -133,11 +133,11 @@ You may also need to add ARCore `meta-data` element
 ```xml
 
 <application ... >
-	...
-	<meta-data
-		android:name="com.google.ar.core"
-		android:value="optional" 
-	/>
+  ...
+  <meta-data
+    android:name="com.google.ar.core"
+    android:value="optional" 
+  />
 </application>
 
 ```
@@ -226,9 +226,9 @@ The markers are returned in an array of type `IARMarker` which is defined as:
 ```typescript
 
 {
-	id:  string;
-	name:  string;
-	image:  string;
+  id:  string;
+  name:  string;
+  image:  string;
 }
 
 ```
@@ -267,9 +267,9 @@ Using the IAR SDK, an array of markers can be returned based off a radius around
 import { downloadOnDemandMarkers, IARMarker } from 'react-native-iar-sdk';
 
 const markers: IARLocationMarker[] = await getLocationMarkers(
-	longitude,
-	latitude,
-	radius
+  longitude,
+  latitude,
+  radius
 );
 
 ```
@@ -278,13 +278,13 @@ The markers are returned in an array of type `IARLocationMarker` which is define
 
 ```typescript
 {
-	id:  string;
-	name:  string;
-	image:  string;
-	latitude:  number;
-	longitude:  number;
-	distance:  number;
-	radius:  number;
+  id:  string;
+  name:  string;
+  image:  string;
+  latitude:  number;
+  longitude:  number;
+  distance:  number;
+  radius:  number;
 }
 ```
 
@@ -304,16 +304,16 @@ The rewards are returned in an array of type `IARReward` which is defined as:
 ```typescript
 
 {
-	id: string;
-	name: string;
-	image: string;
-	rewardReasonType: string;
-	type: string;
-	actionButtonEnabled: boolean;
-	actionButtonText: string;
-	actionButtonUrl: string;
-	generalPromoCode: string;
-	generalPromoCodeOptionalText: string;
+  id: string;
+  name: string;
+  image: string;
+  rewardReasonType: string;
+  type: string;
+  actionButtonEnabled: boolean;
+  actionButtonText: string;
+  actionButtonUrl: string;
+  generalPromoCode: string;
+  generalPromoCodeOptionalText: string;
 }
 
 ```
@@ -327,51 +327,49 @@ import { SurfaceView, IARPlaceButtonConfig } from 'react-native-iar-sdk';
 
 const SurfaceViewScreen = () => {
 
-	// Setup event listeners for SurafaceView Events
-	const onProgressChange = (progress: number) => {
-		console.log('onProgressChange - progress: ', progress);
-	};
-	
-	const onAssetAnchoredChange = (isAnchored: boolean)  =>  {
-		console.log('onAssetAnchoredChange - isAnchored: ', isAnchored);
-	};
-
-	const onSurfaceDetected = (isSurfaceDetected: boolean) => {
-		console.log('onSurfaceDetected - isSurfaceDetected: ', isSurfaceDetected);
-	};
-
-	const onRewardsAwarded = (rewards:  string[]) => {
-		console.log('onRewardsAwarded - rewards: ', rewards);
-	};
-
-	// Setup a configuration for the placement button
-	const placeButtonConfig: IARPlaceButtonConfig = {
-	borderWidth: 5,
-	borderRadius: 10,
-	textColor: '#FFFFFF',
-	backgroundColor: '#000000',
-	borderColor: '#FFFFFF',
-	width: 100,
-	height: 50,
-	fontSize: 14,
-	fontWeight: 'bold',
-	anchoredText: 'Move',
-	unAnchoredText: 'Place',
-	};
-
-	// Return the SurfaceView Component
-	return (
-		<SurfaceView
-			markerId={route.params?.markerId}
-			onDownloadProgressChange={(progress) =>  onProgressChange(progress)}
-			isSurfaceDetected={(isSurfaceDetected) => onSurfaceDetected(isSurfaceDetected)}
-			isAssetAnchored={(isAssetAnchored) => onAssetAnchoredChange(isAssetAnchored)}
-			rewardsAwarded={(rewards) =>  onRewardsAwarded(rewards)}
-			placeButtonConfig={placeButtonConfig}
-		/>
-	);
+  // Setup event listeners for SurafaceView Events
+  const onProgressChange = (progress: number) => {
+  	console.log('onProgressChange - progress: ', progress);
+  };
+  
+  const onAssetAnchoredChange = (isAnchored: boolean)  =>  {
+  	console.log('onAssetAnchoredChange - isAnchored: ', isAnchored);
+  };  
+  const onSurfaceDetected = (isSurfaceDetected: boolean) => {
+  	console.log('onSurfaceDetected - isSurfaceDetected: ', isSurfaceDetected);
+  };  
+  const onRewardsAwarded = (rewards:  string[]) => {
+  	console.log('onRewardsAwarded - rewards: ', rewards);
+  };  
+  // Setup a configuration for the placement button
+  const placeButtonConfig: IARPlaceButtonConfig = {
+    borderWidth: 5,
+    borderRadius: 10,
+    textColor: '#FFFFFF',
+    backgroundColor: '#000000',
+    borderColor: '#FFFFFF',
+    width: 100,
+    height: 50,
+    fontSize: 14,
+    fontWeight: 'bold',
+    anchoredText: 'Move',
+    unAnchoredText: 'Place',
+  };  
+  // Return the SurfaceView Component
+  return (
+  	<SurfaceView
+      markerId={route.params?.markerId}
+      onDownloadProgressChange={(progress) => onProgressChange(progress)}
+      isSurfaceDetected={(isSurfaceDetected) => onSurfaceDetected(isSurfaceDetected)}
+      isAssetAnchored={(isAssetAnchored) => onAssetAnchoredChange(isAssetAnchored)}
+      rewardsAwarded={(rewards) => onRewardsAwarded(rewards)}
+      placeButtonConfig={placeButtonConfig}
+  	/>
+  );
 };
 export default SurfaceViewScreen;
+
+```
 
 ```
 

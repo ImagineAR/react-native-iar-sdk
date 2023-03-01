@@ -42,7 +42,7 @@ The values that you put for these will be displayed to the user when approving C
 #### React Native Config for iOS
 In the podfile of your project, the flag `use_frameworks!` needs to be set, along with disabling `hermes` and `fabric` if applicable.
 Setting cocoapods to not use deterministic uuids is also required.
-```pod
+```ruby
 
 ...
 platform :ios, '13.0'
@@ -68,7 +68,7 @@ end
 
 #### Gradle configuration
 The minimum API Level for this the IAR SDK is `26`
-```text
+```gradle
 
 buildscript {
 	ext {
@@ -81,7 +81,7 @@ buildscript {
 ```
 The IAR SDK is built using Kotlin. If your application is not already using Kotlin, you will need to add the Kotlin plugin:
 
-```text
+```gradle
 
 buildscript {
     ext.kotlin_version = '1.5.20'
@@ -98,7 +98,7 @@ buildscript {
 ```
 In your android tag in the app module's build.grade file, add the following `aaptOptions` and `noCompress` values.
 
-```text
+```gradle
 
 android {
   compileSdkVersion ...
@@ -144,7 +144,7 @@ You may also need to add ARCore `meta-data` element
 #### Proguard Rules
 If your project uses Proguard, the following rules are recommended:
 
-```text
+```Proguard
 
 # Add any project specific keep options here:
 -keep class com.google.android.filament.** { *; }
@@ -171,7 +171,7 @@ For demonstration purposes, you can try the DEMO license:
 
 The demo license above contains a few sample markers, hunts and other assets.
 
-```ts
+```typescript
 
 import { initialize } from 'react-native-iar-sdk';
 
@@ -185,7 +185,7 @@ console.log('initialization response: ', response);
 To use the IAR SDK, first a user needs to be created or, if the user already exists, it needs to be set in the library. The userid is a alphanumeric string of your choice, and will save that users rewards to their 'account'
 
 ## Create a New User
-```ts
+```typescript
 
 import { createExternalUserId } from 'react-native-iar-sdk';
 
@@ -198,7 +198,7 @@ console.log('createExternalUserId response', response);
 if the user already exists, you can just set them in the library using `setExternalUserId`
 
 ## Set Existing User
-```ts
+```typescript
 
 import { setExternalUserId } from 'react-native-iar-sdk';
 
@@ -213,7 +213,7 @@ On-Demand Markers allow you to create custom user experiences and supplement the
 
 If you like, you can download an array of markers from the SDK. 
 
-```ts
+```typescript
 
 import { downloadOnDemandMarkers, IARMarker } from 'react-native-iar-sdk';
 
@@ -223,7 +223,7 @@ const markers: IARMarker[] = await downloadOnDemandMarkers();
 
 The markers are returned in an array of type `IARMarker` which is defined as:
 
-```ts
+```typescript
 
 {
 	id:  string;
@@ -262,7 +262,7 @@ If you are integrating AR experiences that will trigger based on user location, 
 
 Using the IAR SDK, an array of markers can be returned based off a radius around the users Latitude and Longitude
 
-```ts
+```typescript
 
 import { downloadOnDemandMarkers, IARMarker } from 'react-native-iar-sdk';
 
@@ -276,7 +276,7 @@ const markers: IARLocationMarker[] = await getLocationMarkers(
 
 The markers are returned in an array of type `IARLocationMarker` which is defined as:
 
-```ts
+```typescript
 {
 	id:  string;
 	name:  string;
@@ -291,7 +291,7 @@ The markers are returned in an array of type `IARLocationMarker` which is define
 ## Download Rewards
 Users can receive Rewards for viewing markers, using the IAR SDK, an array of rewards a user has previously been rewarded can be returned and shown to the users.
 
-```ts
+```typescript
 
 import { getUserRewards, IARReward } from 'react-native-iar-sdk';
 
@@ -301,7 +301,7 @@ const userRewards: IARReward[] = await getUserRewards();
 
 The rewards are returned in an array of type `IARReward` which is defined as:
 
-```ts
+```typescript
 
 {
 	id: string;
@@ -321,7 +321,7 @@ The rewards are returned in an array of type `IARReward` which is defined as:
 ## Displaying the AR Experience
 Both OnDemand and Location markers are OnDemand experiences. Following these instructions will launch a full-screen camera view to allow the user to place the AR asset on a surface and interact with it in the AR space via the camera.
 
-```ts
+```typescript
 
 import { SurfaceView, IARPlaceButtonConfig } from 'react-native-iar-sdk';
 

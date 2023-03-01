@@ -371,9 +371,6 @@ export default SurfaceViewScreen;
 
 ```
 
-```
-
-
 The `SurfaceView` component is used to show the AR Experience. It will launch in a full screen view on android, and a full screen modal on iOS. It contains a configurable button that is used to place/move the 3D asset in camera space.
 
 The SurfaceView component accepts a number of props.

@@ -331,7 +331,6 @@ const SurfaceViewScreen = () => {
   const onProgressChange = (progress: number) => {
   	console.log('onProgressChange - progress: ', progress);
   };
-  
   const onAssetAnchoredChange = (isAnchored: boolean)  =>  {
   	console.log('onAssetAnchoredChange - isAnchored: ', isAnchored);
   };  
@@ -341,6 +340,7 @@ const SurfaceViewScreen = () => {
   const onRewardsAwarded = (rewards:  string[]) => {
   	console.log('onRewardsAwarded - rewards: ', rewards);
   };  
+  
   // Setup a configuration for the placement button
   const placeButtonConfig: IARPlaceButtonConfig = {
     borderWidth: 5,
@@ -357,14 +357,14 @@ const SurfaceViewScreen = () => {
   };  
   // Return the SurfaceView Component
   return (
-  	<SurfaceView
+    <SurfaceView
       markerId={route.params?.markerId}
       onDownloadProgressChange={(progress) => onProgressChange(progress)}
       isSurfaceDetected={(isSurfaceDetected) => onSurfaceDetected(isSurfaceDetected)}
       isAssetAnchored={(isAssetAnchored) => onAssetAnchoredChange(isAssetAnchored)}
       rewardsAwarded={(rewards) => onRewardsAwarded(rewards)}
       placeButtonConfig={placeButtonConfig}
-  	/>
+    />
   );
 };
 export default SurfaceViewScreen;

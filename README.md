@@ -171,7 +171,7 @@ For demonstration purposes, you can try the DEMO license:
 
 The demo license above contains a few sample markers, hunts and other assets.
 
-```typescript
+```tsx
 
 import { initialize } from 'react-native-iar-sdk';
 
@@ -185,7 +185,7 @@ console.log('initialization response: ', response);
 To use the IAR SDK, first a user needs to be created or, if the user already exists, it needs to be set in the library. The userid is a alphanumeric string of your choice, and will save that users rewards to their 'account'
 
 ## Create a New User
-```typescript
+```tsx
 
 import { createExternalUserId } from 'react-native-iar-sdk';
 
@@ -198,7 +198,7 @@ console.log('createExternalUserId response', response);
 if the user already exists, you can just set them in the library using `setExternalUserId`
 
 ## Set Existing User
-```typescript
+```tsx
 
 import { setExternalUserId } from 'react-native-iar-sdk';
 
@@ -213,7 +213,7 @@ On-Demand Markers allow you to create custom user experiences and supplement the
 
 If you like, you can download an array of markers from the SDK. 
 
-```typescript
+```tsx
 
 import { downloadOnDemandMarkers, IARMarker } from 'react-native-iar-sdk';
 
@@ -223,7 +223,7 @@ const markers: IARMarker[] = await downloadOnDemandMarkers();
 
 The markers are returned in an array of type `IARMarker` which is defined as:
 
-```typescript
+```tsx
 
 {
   id:  string;
@@ -262,7 +262,7 @@ If you are integrating AR experiences that will trigger based on user location, 
 
 Using the IAR SDK, an array of markers can be returned based off a radius around the users Latitude and Longitude
 
-```typescript
+```tsx
 
 import { downloadOnDemandMarkers, IARMarker } from 'react-native-iar-sdk';
 
@@ -276,7 +276,7 @@ const markers: IARLocationMarker[] = await getLocationMarkers(
 
 The markers are returned in an array of type `IARLocationMarker` which is defined as:
 
-```typescript
+```tsx
 {
   id:  string;
   name:  string;
@@ -291,7 +291,7 @@ The markers are returned in an array of type `IARLocationMarker` which is define
 ## Download Rewards
 Users can receive Rewards for viewing markers, using the IAR SDK, an array of rewards a user has previously been rewarded can be returned and shown to the users.
 
-```typescript
+```tsx
 
 import { getUserRewards, IARReward } from 'react-native-iar-sdk';
 
@@ -301,7 +301,7 @@ const userRewards: IARReward[] = await getUserRewards();
 
 The rewards are returned in an array of type `IARReward` which is defined as:
 
-```typescript
+```tsx
 
 {
   id: string;
@@ -321,7 +321,7 @@ The rewards are returned in an array of type `IARReward` which is defined as:
 ## Displaying the AR Experience
 Both OnDemand and Location markers are OnDemand experiences. Following these instructions will launch a full-screen camera view to allow the user to place the AR asset on a surface and interact with it in the AR space via the camera.
 
-```typescript
+```tsx
 
 import { SurfaceView, IARPlaceButtonConfig } from 'react-native-iar-sdk';
 

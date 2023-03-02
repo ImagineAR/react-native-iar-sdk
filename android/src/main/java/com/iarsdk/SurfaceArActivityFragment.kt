@@ -6,7 +6,6 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +18,7 @@ import com.iar.surface_sdk.aractivity.IARSurfaceActivity
 class SurfaceARActivityFragment : Fragment() {
 
   private lateinit var buttonPlace: Button
+  private lateinit var buttonClose: Button
 
   var isAnchored = false
   var buttonPlaceUnAnchoredText = "Place"
@@ -32,25 +32,40 @@ class SurfaceARActivityFragment : Fragment() {
   ): View? {
     // Inflate the layout for this fragment
     val view = inflater.inflate(R.layout.fragment_surface_ar_activity, container, false)
+
     buttonPlace = view.findViewById(R.id.buttonPlace)
+    buttonClose = view.findViewById(R.id.buttonClose)
 
     // Setup Button Styles
     setupButton(buttonPlace, styleButtonPlace)
+    buttonPlace.text = buttonPlaceUnAnchoredText
+
+    setupButton(buttonClose, styleButtonPlace)
+    buttonClose.text = "X"
+
+    // Make close button a square
+    val buttonCloseLayoutParams = buttonClose.layoutParams
+    buttonCloseLayoutParams.width = buttonCloseLayoutParams.height
+    buttonClose.layoutParams = buttonCloseLayoutParams
+
     return view
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    // Set an onClickListener for the button
+    // Set an onClickListener for the placement button
     buttonPlace.setOnClickListener {
-      (activity as SurfaceARActivity).logThis("Fragment Button Clicked")
       if (isAnchored) {
         (activity as? IARSurfaceActivity)?.unanchorAsset()
       }
       else {
         (activity as? IARSurfaceActivity)?.anchorAsset()
       }
+    }
+    // Set an onClickListener for the button
+    buttonClose.setOnClickListener {
+      (activity as? SurfaceARActivity)?.finish();
     }
   }
 
@@ -91,7 +106,6 @@ class SurfaceARActivityFragment : Fragment() {
 
     // Set button text
     button.setTextColor(Color.parseColor(textColor))
-    button.text = buttonPlaceUnAnchoredText
 
     // Set button width/height
     val layoutParams = button.layoutParams

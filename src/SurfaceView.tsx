@@ -14,6 +14,8 @@ import {
 import type { IPlaceButtonConfig } from 'react-native-iar-sdk';
 import SurfaceComponent from './SurfaceComponent';
 
+const isIos = Platform.OS === 'ios' ? true : false;
+
 export const SurfaceView = ({
   style,
   markerId,
@@ -42,7 +44,7 @@ export const SurfaceView = ({
   const surfaceViewRef = useRef(null);
 
   const eventEmitter = new NativeEventEmitter(
-    Platform.OS === 'ios' ? NativeModules.IAREventEmitter : NativeModules.IARSdk
+    isIos ? NativeModules.IAREventEmitter : NativeModules.IARSdk
   );
 
   // Setup Component Init
@@ -229,7 +231,7 @@ export const SurfaceView = ({
 
   return (
     <View style={style ? style : styles.container}>
-      {Platform.OS === 'ios' ? (
+      {isIos ? (
         <Modal
           visible={isIosModalVisible}
           presentationStyle="fullScreen" // or "fullScreen" for actual fullscreen - would need a close button
@@ -284,7 +286,7 @@ export const SurfaceView = ({
           />
         </View>
       )}
-      {!markerAssetsDownloaded ? (
+      {isIos && !markerAssetsDownloaded ? (
         <SurfaceComponent
           style={styles.hiddenSurfaceComponent}
           markerId={markerId}

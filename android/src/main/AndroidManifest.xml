@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.iarsdk">
+    <application>
+        <activity android:name="com.iar.surface_sdk.aractivity.IARSurfaceActivity" />
+        <activity android:name="com.iarsdk.SurfaceARActivity" />
+    </application>
+</manifest>
